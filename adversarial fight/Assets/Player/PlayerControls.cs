@@ -7,10 +7,13 @@ public class PlayerControls : MonoBehaviour{
     public Vector3 targetPos;
     public GameObject laserPrefab;
 
+    float maxHealth = 300.0f;
+    float currentHealth;
     Quaternion currentRotation;
 
     void Start(){
         Quaternion currentRotation = transform.rotation;
+        currentHealth = maxHealth;
     }
     
     int ToInt(bool val){
@@ -106,5 +109,8 @@ public class PlayerControls : MonoBehaviour{
 
         // shoot if conditions are met
         shootHandler();
+
+        // checks for collisions with enemy lasers
+        
     }
 }

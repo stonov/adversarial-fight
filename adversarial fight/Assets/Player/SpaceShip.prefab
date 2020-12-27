@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3316714239589068914}
   - component: {fileID: -8765829841981500950}
+  - component: {fileID: 8176417025515172528}
   m_Layer: 0
   m_Name: SpaceShip
   m_TagString: Untagged
@@ -125,7 +126,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be96f41c35dd084995c30341a26039a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  is_player: 1
-  target_pos: {x: 0, y: 0, z: 0}
+  isPlayer: 1
+  targetPos: {x: 0, y: 0, z: 0}
   laserPrefab: {fileID: 7161474283528717985, guid: e12f50cfe46211b4784aa8002c8f2fbd,
     type: 3}
+--- !u!58 &8176417025515172528
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952511599703625034}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

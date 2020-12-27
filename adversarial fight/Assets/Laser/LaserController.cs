@@ -25,6 +25,6 @@ public class LaserController : MonoBehaviour
 
             destroySelf();
         }
-        Debug.Log("x: " + currentPosition.x + " y: " + currentPosition.y);
+        // Debug.Log("x: " + currentPosition.x + " y: " + currentPosition.y);
     }
 }
