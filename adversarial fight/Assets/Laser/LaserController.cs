@@ -5,11 +5,10 @@ using UnityEngine;
 public class LaserController : MonoBehaviour
 {
     public int parent;
+    public float damage = 50.0f;
     float speed = 10.0f;
-    // void Start(){
-    // }
 
-    void destroySelf(){
+    public void destroySelf(){
         Destroy(gameObject);
         Destroy(this);
     }

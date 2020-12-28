@@ -98,6 +98,25 @@ public class PlayerControls : MonoBehaviour{
         }
     }
 
+    void OnTriggerEnter2D(Collider2D col){
+        if(col.gameObject.tag == "LaserShot"){
+            GameObject hitLaser = col.gameObject;
+            LaserController newLaserScript = hitLaser.GetComponent<LaserController>();
+            if(newLaserScript.parent != gameObject.GetInstanceID()){
+                newLaserScript.destroySelf();
+                currentHealth -= newLaserScript.damage;
+                if(currentHealth <= 0.0f){
+                    destroySelf();
+                }
+            }
+        }
+    }
+
+    void destroySelf(){
+        Destroy(gameObject);
+        Destroy(this);
+    }
+
     // Update is called once per frame
     void Update(){
         // reset the rotation to independently re-position ship
@@ -109,8 +128,5 @@ public class PlayerControls : MonoBehaviour{
 
         // shoot if conditions are met
         shootHandler();
-
-        // checks for collisions with enemy lasers
-        
     }
 }
