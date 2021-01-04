@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour{
-    public bool isPlayer = true;
+public enum behaviorCategory {player, random};
+
+public class ShipControls : MonoBehaviour{
+    public behaviorCategory myBehavior = behaviorCategory.player;
     public Vector3 targetPos;
     public GameObject laserPrefab;
+    public GameObject AI;
 
     float maxHealth = 300.0f;
     float currentHealth;
@@ -21,7 +24,7 @@ public class PlayerControls : MonoBehaviour{
     }
     
     void updateOrientation(){
-        if(isPlayer){
+        if(myBehavior == behaviorCategory.player){
             targetPos = Input.mousePosition;
         }
         var objectPos = Camera.main.WorldToScreenPoint(transform.position);
@@ -49,7 +52,7 @@ public class PlayerControls : MonoBehaviour{
     Vector3 getMoveDir(ref int shouldMove){
         // Up, Down, Left, Right
         int[] inputDir = {0, 0, 0, 0};
-        if(isPlayer){
+        if(myBehavior == behaviorCategory.player){
             inputDir = getInputFromArrowKeys();
         }
         int verticalDir = inputDir[0] - inputDir[1];
@@ -91,7 +94,7 @@ public class PlayerControls : MonoBehaviour{
     }
 
     void shootHandler(){
-        if(isPlayer){
+        if(myBehavior == behaviorCategory.player){
             if(Input.GetMouseButtonDown(0)){
                 fireLaser();
             }
