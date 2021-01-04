@@ -5,18 +5,25 @@ using UnityEngine;
 public enum behaviorCategory {player, random};
 
 public class ShipControls : MonoBehaviour{
-    public behaviorCategory myBehavior = behaviorCategory.player;
-    public Vector3 targetPos;
+    public behaviorCategory thisBehavior = behaviorCategory.player;
     public GameObject laserPrefab;
-    public GameObject AI;
-
+    public GameObject AIObject;
+    
+    Vector3 targetPos;
+    GenericAI thisAI;
     float maxHealth = 300.0f;
     float currentHealth;
     Quaternion currentRotation;
 
-    void Start(){
-        Quaternion currentRotation = transform.rotation;
-        currentHealth = maxHealth;
+    void getBehavior(){
+        if(thisBehavior == behaviorCategory.player){
+            thisAI = AIObject.GetComponent<PlayerAI>();
+        }
+        else if(thisBehavior == behaviorCategory.random){
+            thisAI = AIObject.GetComponent<RandomAI>();
+        }else{
+            thisAI = AIObject.GetComponent<RandomAI>();
+        }
     }
     
     int ToInt(bool val){
@@ -24,9 +31,7 @@ public class ShipControls : MonoBehaviour{
     }
     
     void updateOrientation(){
-        if(myBehavior == behaviorCategory.player){
-            targetPos = Input.mousePosition;
-        }
+        targetPos = thisAI.getTargetPosInput();
         var objectPos = Camera.main.WorldToScreenPoint(transform.position);
         var targetAngle = Mathf.Atan2(targetPos.y - objectPos.y, targetPos.x - objectPos.x) * Mathf.Rad2Deg;
         
@@ -40,21 +45,10 @@ public class ShipControls : MonoBehaviour{
         currentRotation = transform.rotation;
     }
 
-    int[] getInputFromArrowKeys(){
-        int upPressed = ToInt(Input.GetKey(KeyCode.W));
-        int downPressed = ToInt(Input.GetKey(KeyCode.S));
-        int leftPressed = ToInt(Input.GetKey(KeyCode.A));
-        int rightPressed = ToInt(Input.GetKey(KeyCode.D));
-        int[] inputDir = {upPressed, downPressed, leftPressed, rightPressed};
-        return inputDir;
-    }
-
     Vector3 getMoveDir(ref int shouldMove){
         // Up, Down, Left, Right
         int[] inputDir = {0, 0, 0, 0};
-        if(myBehavior == behaviorCategory.player){
-            inputDir = getInputFromArrowKeys();
-        }
+        inputDir = thisAI.getMovementInput();
         int verticalDir = inputDir[0] - inputDir[1];
         int horizontalDir = inputDir[3] - inputDir[2];
 
@@ -94,10 +88,8 @@ public class ShipControls : MonoBehaviour{
     }
 
     void shootHandler(){
-        if(myBehavior == behaviorCategory.player){
-            if(Input.GetMouseButtonDown(0)){
-                fireLaser();
-            }
+        if(thisAI.getShootingInput()){
+            fireLaser();
         }
     }
 
@@ -120,7 +112,12 @@ public class ShipControls : MonoBehaviour{
         Destroy(this);
     }
 
-    // Update is called once per frame
+    void Start(){
+        getBehavior();
+        Quaternion currentRotation = transform.rotation;
+        currentHealth = maxHealth;
+    }
+
     void Update(){
         // reset the rotation to independently re-position ship
         transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
@@ -131,5 +128,7 @@ public class ShipControls : MonoBehaviour{
 
         // shoot if conditions are met
         shootHandler();
+
+        thisAI.shout();
     }
 }

@@ -127,11 +127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be96f41c35dd084995c30341a26039a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 1
+  thisBehavior: 0
   targetPos: {x: 0, y: 0, z: 0}
   laserPrefab: {fileID: 7161474283528717985, guid: e12f50cfe46211b4784aa8002c8f2fbd,
     type: 3}
-  AI: {fileID: 4934685771691663726, guid: b2178c0bba2b31a42af8a265de2b15e4, type: 3}
+  AIObject: {fileID: 4934685771691663726, guid: b2178c0bba2b31a42af8a265de2b15e4,
+    type: 3}
+  thisAI: {fileID: 0}
 --- !u!58 &8176417025515172528
 CircleCollider2D:
   m_ObjectHideFlags: 0

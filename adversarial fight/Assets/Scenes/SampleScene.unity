@@ -297,6 +297,16 @@ PrefabInstance:
       propertyPath: isPlayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8765829841981500950, guid: a542a220f2a94e54294dbc222c00e9ce,
+        type: 3}
+      propertyPath: myBehavior
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8765829841981500950, guid: a542a220f2a94e54294dbc222c00e9ce,
+        type: 3}
+      propertyPath: thisBehavior
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3316714239589068914, guid: a542a220f2a94e54294dbc222c00e9ce,
         type: 3}
       propertyPath: m_LocalPosition.x
