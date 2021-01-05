@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class GenericAI : MonoBehaviour
 {
-    void Start(){
-        Debug.Log("original start");
+    public virtual void Start(){
     }
     
-    void Update(){
-        Debug.Log("original");
+    public virtual void Update(){
     }
 
     public virtual Vector3 getTargetPosInput(){
@@ -24,9 +22,5 @@ public class GenericAI : MonoBehaviour
     public virtual bool getShootingInput(){
         Debug.Log("generic!!");
         return false;
-    }
-
-    public virtual void shout(){
-        // Debug.Log("haa");
     }
 }

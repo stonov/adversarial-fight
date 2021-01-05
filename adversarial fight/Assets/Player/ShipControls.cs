@@ -22,7 +22,7 @@ public class ShipControls : MonoBehaviour{
         else if(thisBehavior == behaviorCategory.random){
             thisAI = AIObject.GetComponent<RandomAI>();
         }else{
-            thisAI = AIObject.GetComponent<RandomAI>();
+            thisAI = AIObject.GetComponent<GenericAI>();
         }
     }
     
@@ -114,11 +114,14 @@ public class ShipControls : MonoBehaviour{
 
     void Start(){
         getBehavior();
+        thisAI.Start();
         Quaternion currentRotation = transform.rotation;
         currentHealth = maxHealth;
     }
 
     void Update(){
+        thisAI.Update();
+
         // reset the rotation to independently re-position ship
         transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
         updatePosition();
@@ -128,7 +131,5 @@ public class ShipControls : MonoBehaviour{
 
         // shoot if conditions are met
         shootHandler();
-
-        thisAI.shout();
     }
 }
