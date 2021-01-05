@@ -10,7 +10,7 @@ public class RandomAI : GenericAI{
     float currentMovementAlarm = 0.0f;
 
     int zeroOrOne(){
-        if(Random.Range(0.0f,1.0f) > 0.5f){
+        if(Random.Range(0.0f, 1.0f) > 0.5f){
             return 1;
         }else{
             return 0;

@@ -71,6 +71,27 @@ public class ShipControls : MonoBehaviour{
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0.0f);
     }
 
+    void wallFix(){
+        var currentPosition = Camera.main.WorldToScreenPoint(transform.position);
+        float x = currentPosition[0];
+        float y = currentPosition[1];
+        if(x < 0.0f){
+            x = 0.0f;
+        }
+        if(y < 0.0f){
+            y = 0.0f;
+        }
+        if(x > Screen.width){
+            x = Screen.width;
+        }
+        if(y > Screen.height){
+            y = Screen.height;
+        }
+        currentPosition[0] = x;
+        currentPosition[1] = y;
+        transform.position = Camera.main.ScreenToWorldPoint(currentPosition);
+    }
+
     void updatePosition(){
         int shouldMove = 1;
         Vector3 moveDir = getMoveDir(ref shouldMove);
@@ -79,6 +100,7 @@ public class ShipControls : MonoBehaviour{
         }
         float speed = 2.0f;
         transform.Translate(moveDir * speed * Time.deltaTime);
+        wallFix();
     }
 
     void fireLaser(){
