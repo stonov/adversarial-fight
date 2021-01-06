@@ -9,11 +9,40 @@ public class ShipControls : MonoBehaviour{
     public GameObject laserPrefab;
     public GameObject AIObject;
     
-    Vector3 targetPos;
-    GenericAI thisAI;
-    float maxHealth = 300.0f;
+    float maxHealth;
     float currentHealth;
+    float reloadTime;
+    float currentReloadTime;
+    Vector3 targetPos;
     Quaternion currentRotation;
+    GenericAI thisAI;
+
+    void Start(){
+        maxHealth = 300.0f;
+        currentHealth = maxHealth;
+
+        reloadTime = 0.6f;
+        currentReloadTime = reloadTime;
+
+        getBehavior();
+        thisAI.Start();
+        Quaternion currentRotation = transform.rotation;
+    }
+
+    void Update(){
+        thisAI.Update();
+        currentReloadTime += Time.deltaTime;
+
+        // reset the rotation to independently re-position ship
+        transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
+        updatePosition();
+
+        // restore the rotation
+        updateOrientation();
+
+        // shoot if conditions are met
+        shootHandler();
+    }
 
     void getBehavior(){
         if(thisBehavior == behaviorCategory.player){
@@ -71,6 +100,7 @@ public class ShipControls : MonoBehaviour{
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0.0f);
     }
 
+    // Prevents the ship from flying off the screen
     void wallFix(){
         var currentPosition = Camera.main.WorldToScreenPoint(transform.position);
         float x = currentPosition[0];
@@ -110,7 +140,8 @@ public class ShipControls : MonoBehaviour{
     }
 
     void shootHandler(){
-        if(thisAI.getShootingInput()){
+        if(thisAI.getShootingInput() && currentReloadTime >= reloadTime){
+            currentReloadTime = 0.0f;
             fireLaser();
         }
     }
@@ -132,26 +163,5 @@ public class ShipControls : MonoBehaviour{
     void destroySelf(){
         Destroy(gameObject);
         Destroy(this);
-    }
-
-    void Start(){
-        getBehavior();
-        thisAI.Start();
-        Quaternion currentRotation = transform.rotation;
-        currentHealth = maxHealth;
-    }
-
-    void Update(){
-        thisAI.Update();
-
-        // reset the rotation to independently re-position ship
-        transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 0.0f));
-        updatePosition();
-
-        // restore the rotation
-        updateOrientation();
-
-        // shoot if conditions are met
-        shootHandler();
     }
 }
