@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum behaviorCategory {player, random};
+public enum behaviorCategory {player, random, mobileAutoAim};
 
 public class ShipControls : MonoBehaviour{
     public behaviorCategory thisBehavior = behaviorCategory.player;
@@ -47,9 +47,10 @@ public class ShipControls : MonoBehaviour{
     void getBehavior(){
         if(thisBehavior == behaviorCategory.player){
             thisAI = AIObject.GetComponent<PlayerAI>();
-        }
-        else if(thisBehavior == behaviorCategory.random){
+        }else if(thisBehavior == behaviorCategory.random){
             thisAI = AIObject.GetComponent<RandomAI>();
+        }else if(thisBehavior == behaviorCategory.mobileAutoAim){
+            thisAI = AIObject.GetComponent<MobileAutoAimAI>();
         }else{
             thisAI = AIObject.GetComponent<GenericAI>();
         }

@@ -4,11 +4,32 @@ using UnityEngine;
 
 public class MobileAutoAimAI : GenericAI
 {
-    Vector3 targetPos = new Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 targetPos;
     int[] movementInput = {0, 0, 0, 0};
-    bool shoot = true;
-    float movementAlarm = 2.0f;
-    float currentMovementAlarm = 0.0f;
+    float movementAlarm;
+    float currentMovementAlarm;
+    GameObject target;
+
+    public override void Start(){
+        target = null;
+        targetPos = new Vector3(0.0f, 0.0f, 0.0f);
+        movementAlarm = 2.0f;
+        currentMovementAlarm = 0.0f;
+    }
+    
+    public override void Update(){
+        if(target == null){
+            findTarget();
+        }else{
+            adjustAim();
+        }
+
+        if(currentMovementAlarm >= movementAlarm){
+            currentMovementAlarm = 0.0f;
+            randomMovement();
+        }
+        currentMovementAlarm += 1.0f * Time.deltaTime;
+    }
 
     int zeroOrOne(){
         if(Random.Range(0.0f, 1.0f) > 0.5f){
@@ -26,20 +47,12 @@ public class MobileAutoAimAI : GenericAI
         targetPos = new Vector3(Random.Range(0.0f, Screen.width), Random.Range(0.0f, Screen.height), 0.0f);
     }
 
-    public override void Start(){
-        movementAlarm = 2.0f;
-        currentMovementAlarm = 0.0f;
+    void findTarget(){
+
     }
-    
-    public override void Update(){
-        if(Random.Range(0.0f, 100.0f) > 99.0f){
-            shoot = true;
-        }
-        if(currentMovementAlarm >= movementAlarm){
-            currentMovementAlarm = 0.0f;
-            randomMovement();
-        }
-        currentMovementAlarm += 1.0f * Time.deltaTime;
+
+    void adjustAim(){
+        
     }
     
     public override Vector3 getTargetPosInput(){
