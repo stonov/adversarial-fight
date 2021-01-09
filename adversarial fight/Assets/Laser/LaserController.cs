@@ -6,7 +6,7 @@ public class LaserController : MonoBehaviour
 {
     public int parent;
     public float damage = 50.0f;
-    float speed = 10.0f;
+    float speed = 15.0f;
 
     public void destroySelf(){
         Destroy(gameObject);

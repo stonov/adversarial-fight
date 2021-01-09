@@ -48,11 +48,24 @@ public class MobileAutoAimAI : GenericAI
     }
 
     void findTarget(){
-
+        GameObject[] spaceships = GameObject.FindGameObjectsWithTag("SpaceShip");
+        int myId = gameObject.GetInstanceID();
+        GameObject closestShip = null;
+        float minDistance = Mathf.Infinity;
+        foreach (GameObject spaceship in spaceships){
+            if(spaceship.GetInstanceID() != myId){
+                float distance = Vector3.Distance(spaceship.transform.position, transform.position);
+                if(distance < minDistance){
+                    closestShip = spaceship;
+                    minDistance = distance;
+                }
+            }
+        }
+        target = closestShip;
     }
 
     void adjustAim(){
-        
+        targetPos = target.transform.position;
     }
     
     public override Vector3 getTargetPosInput(){

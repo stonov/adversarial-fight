@@ -26,6 +26,6 @@ public class PlayerAI : GenericAI
     }
 
     public override bool getShootingInput(){
-        return Input.GetMouseButtonDown(0);
+        return Input.GetMouseButton(0);
     }
 }
