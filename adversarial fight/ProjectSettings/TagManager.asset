@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LaserShot
+  - SpaceShip
   layers:
   - Default
   - TransparentFX
